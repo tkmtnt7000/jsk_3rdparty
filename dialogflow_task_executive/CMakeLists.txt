@@ -23,11 +23,13 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 add_message_files(
+  DIRECTORY msg
   FILES
   DialogResponse.msg
 )
 
 add_action_files(
+  DIRECTORY action
   FILES
   DialogText.action
 )
@@ -39,7 +41,7 @@ generate_messages(
 )
 
 catkin_package(
-  CATKIN_DEPENDS message_runtime
+  CATKIN_DEPENDS message_runtime std_msgs
 )
 
 if("$ENV{ROS_DISTRO}" STREQUAL "indigo")
