@@ -28,7 +28,7 @@ class Tweet(object):
 
     def tweet_cb(self, msg):
         message = msg.data
-        rospy.loginfo(rospy.get_name() + " sending %s", message)
+        rospy.logdebug(rospy.get_name() + " sending %s", message)
 
         ret = self.api.post_update(message)
         if 'errors' in ret:
