@@ -4,26 +4,10 @@ project(tmp_openai)
 find_package(catkin REQUIRED COMPONENTS
    catkin_virtualenv REQUIRED
    rospy
-   std_msgs
-   message_generation
 )
 
 catkin_python_setup()
 
-add_message_files(
-  FILES
-  StringArray.msg
-)
-
-add_service_files(
-  FILES
-  Completion.srv
-)
-
-generate_messages(
-  DEPENDENCIES
-  std_msgs
-)
 
 catkin_package(
 #  INCLUDE_DIRS include
@@ -55,7 +39,11 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-catkin_install_python(
-  PROGRAMS scripts/*
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-  )
+file(GLOB_RECURSE SCRIPT_PROGRAMS scripts/*)
+foreach(SCRIPT_PROGRAM ${SCRIPT_PROGRAMS})
+  if("${SCRIPT_PROGRAM}" MATCHES ".*\\.py$")
+    catkin_install_python(PROGRAMS ${SCRIPT_PROGRAM} DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+  else()
+    install(PROGRAMS ${SCRIPT_PROGRAM} DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+  endif()
+endforeach()
