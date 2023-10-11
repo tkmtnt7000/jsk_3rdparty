@@ -58,6 +58,7 @@ else()
   catkin_generate_virtualenv(
     INPUT_REQUIREMENTS requirements.in
     PYTHON_INTERPRETER python2
+    EXTRA_PIP_ARGS --no-build-isolation
     )
 endif()
 
